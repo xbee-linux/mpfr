@@ -1,0 +1,18 @@
+schema-version: 1.0
+
+description: |
+  The MPFR package contains functions for multiple precision math.
+
+  libmpfr: Contains multiple-precision math functions
+
+
+builder: ./mpfr-builder
+
+var:
+  version: 4.1.0
+
+
+provision:
+  - copy:
+      builder: mpfr
+      todir: /

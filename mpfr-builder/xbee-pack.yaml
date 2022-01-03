@@ -1,0 +1,36 @@
+schema-version: 1.0
+
+type: builder
+
+
+const:
+  srcDir: /usr/src
+  exportDir: /opt/mpfr
+
+
+dependencies:
+  - gmp
+  - texinfo
+  - perl
+
+provision:
+  - url:
+      from: https://www.mpfr.org/mpfr-{% version %}/mpfr-{% version %}.tar.xz
+      todir: "{% srcDir %}"
+  - env: PERL5LIB=/usr/share/texinfo:/usr/share/texinfo/lib/libintl-perl/lib:/usr/share/texinfo/lib/Text-Unidecode/lib:/usr/share/texinfo/lib/Unicode-EastAsianWidth/lib
+
+build:
+  - shell:
+      cmds:
+        - ./configure --prefix=/usr
+            --disable-static
+            --enable-thread-safe
+            --docdir=/usr/share/doc/mpfr-{% version %}
+        - make
+        - make html
+#        - make check
+        - make install DESTDIR={% exportDir %}
+        - make install-html DESTDIR={% exportDir %}
+      directory: "{% srcDir %}/mpfr-{% version %}"
+  - export: "{% exportDir %}"
+
