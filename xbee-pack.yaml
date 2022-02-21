@@ -1,18 +1,35 @@
 schema-version: 1.0
 
+type: builder
+
 description: |
   The MPFR package contains functions for multiple precision math.
 
   libmpfr: Contains multiple-precision math functions
 
-
-builder: ./mpfr-builder
-
-var:
+in:
   version: 4.1.0
 
+dependencies:
+  - gmp
+  - texinfo
+  - perl
 
 provision:
-  - copy:
-      builder: mpfr
-      todir: /
+  - url:
+      from: https://www.mpfr.org/mpfr-{% version %}/mpfr-{% version %}.tar.xz
+      todir: "{% xbeeSrc %}"
+  - env: PERL5LIB=/usr/share/texinfo:/usr/share/texinfo/lib/libintl-perl/lib:/usr/share/texinfo/lib/Text-Unidecode/lib:/usr/share/texinfo/lib/Unicode-EastAsianWidth/lib
+
+build:
+  - shell:
+      cmds:
+        - ./configure --prefix=/usr --disable-static --enable-thread-safe --docdir=/usr/share/doc/mpfr-{% version %}
+        - make
+        - make html
+#        - make check
+        - make install DESTDIR={% xbeeOut %}
+        - make install-html DESTDIR={% xbeeOut %}
+      directory: "{% xbeeSrc %}/mpfr-{% version %}"
+
+
