@@ -7,7 +7,7 @@ description: |
 
   libmpfr: Contains multiple-precision math functions
 
-in:
+var:
   version: 4.1.0
 
 dependencies:
@@ -17,19 +17,19 @@ dependencies:
 
 provision:
   - url:
-      from: https://www.mpfr.org/mpfr-{% version %}/mpfr-{% version %}.tar.xz
-      todir: "{% xbeeSrc %}"
+      from: https://www.mpfr.org/mpfr-{{ .version }}/mpfr-{{ .version }}.tar.xz
+      todir: "{{ .xbee.src }}"
   - env: PERL5LIB=/usr/share/texinfo:/usr/share/texinfo/lib/libintl-perl/lib:/usr/share/texinfo/lib/Text-Unidecode/lib:/usr/share/texinfo/lib/Unicode-EastAsianWidth/lib
 
 build:
   - shell:
       cmds:
-        - ./configure --prefix=/usr --disable-static --enable-thread-safe --docdir=/usr/share/doc/mpfr-{% version %}
+        - ./configure --prefix=/usr --disable-static --enable-thread-safe --docdir=/usr/share/doc/mpfr-{{ .version }}
         - make
         - make html
 #        - make check
-        - make install DESTDIR={% xbeeOut %}
-        - make install-html DESTDIR={% xbeeOut %}
-      directory: "{% xbeeSrc %}/mpfr-{% version %}"
+        - make install DESTDIR={{ .xbee.out }}
+        - make install-html DESTDIR={{ .xbee.out }}
+      directory: "{{ .xbee.src }}/mpfr-{{ .version }}"
 
 
