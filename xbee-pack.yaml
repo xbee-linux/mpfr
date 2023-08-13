@@ -10,7 +10,7 @@ description: |
 var:
   version: 4.1.0
 
-dependencies:
+builders:
   - gmp
   - texinfo
   - perl
