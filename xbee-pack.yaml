@@ -16,9 +16,7 @@ builders:
   - perl
 
 provision:
-  - url:
-      from: https://www.mpfr.org/mpfr-{{ .version }}/mpfr-{{ .version }}.tar.xz
-      todir: "{{ .xbee.src }}"
+  - url: https://www.mpfr.org/mpfr-{{ .version }}/mpfr-{{ .version }}.tar.xz
   - env: PERL5LIB=/usr/share/texinfo:/usr/share/texinfo/lib/libintl-perl/lib:/usr/share/texinfo/lib/Text-Unidecode/lib:/usr/share/texinfo/lib/Unicode-EastAsianWidth/lib
 
 build:
