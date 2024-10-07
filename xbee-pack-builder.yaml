@@ -1,7 +1,5 @@
 schema-version: 1.0
 
-type: builder
-
 description: |
   The MPFR package contains functions for multiple precision math.
 
@@ -11,7 +9,7 @@ var:
   xbee:
     version: 4.1.0
 
-builders:
+builder:
   - gmp
   - texinfo
   - perl
